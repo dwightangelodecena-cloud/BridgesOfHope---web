@@ -373,7 +373,7 @@ const Progress = () => {
                     <span className="sidebar-label">Progress</span>
                 </div>
                 <div style={{ marginTop: 'auto', width: '100%' }}>
-                    <div className="sidebar-nav-item"><User size={22} /><span className="sidebar-label">Profile</span></div>
+                    <div className="sidebar-nav-item" onClick={() => navigate('/profile')}><User size={22} /><span className="sidebar-label">Profile</span></div>
                     <div className="sidebar-nav-item" onClick={() => navigate('/login')}><LogOut size={22} color="#F54E25" /><span className="sidebar-label" style={{ color: '#F54E25' }}>Logout</span></div>
                 </div>
             </aside>
@@ -471,7 +471,7 @@ const Progress = () => {
                         <TrendingUp size={24} color="#F54E25" />
                         <span style={{ fontSize: '10px', fontWeight: 700, color: '#F54E25' }}>Progress</span>
                     </div>
-                    <User size={24} color="#A3AED0" />
+                    <User size={24} color="#A3AED0" onClick={() => navigate('/profile')} />
                     <LogOut size={24} color="#A3AED0" onClick={() => navigate('/login')} />
                 </nav>
 
@@ -535,7 +535,7 @@ const Progress = () => {
                                         <span style={{ color: '#A3AED0', fontSize: '13px', fontWeight: 600 }}>Select a week</span>
                                     </div>
                                     <div className="week-grid">
-                                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(w => (
+                                        {[1, 2, 3, 4, 5, 6, 7].map(w => (
                                             <div key={w} className="week-card">
                                                 <div className="week-circle">{w}</div>
                                                 <span className="week-label">Week <br /> {w}</span>

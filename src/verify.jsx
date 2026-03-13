@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './assets/logo.png';
 
 const VerifyStep2 = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || 'forgot';
   
   // State to hold the 4-digit code
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -38,7 +40,7 @@ const VerifyStep2 = () => {
     const finalCode = otp.join('');
     if (finalCode.length === 4) {
       // Navigates to newpass.jsx
-      navigate('/newpass'); 
+      navigate('/newpass', { state: { from } });
     }
   };
 
@@ -233,14 +235,6 @@ const VerifyStep2 = () => {
                   />
                 ))}
               </div>
-
-              <button 
-                type="button" 
-                className="text-link-btn" 
-                onClick={() => navigate('/login')}
-              >
-                Back to Log In
-              </button>
 
               <button type="submit" className="btn-primary">Verify</button>
             </form>

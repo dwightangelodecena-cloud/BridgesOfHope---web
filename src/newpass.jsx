@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Lock, CheckCircle, XCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './assets/logo.png';
 
 const NewPass = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || 'forgot';
+
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: ''
@@ -22,12 +25,10 @@ const NewPass = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!isLengthValid) return;
-    
     if (passwordsMatch) {
       console.log("Password reset successful");
-      navigate('/login');
+      navigate(from === 'changepass' ? '/profile' : '/login');
     }
   };
 
@@ -119,12 +120,12 @@ const NewPass = () => {
           color: #1e293b;
           background-color: #ffffff;
           transition: all 0.2s ease;
+          font-family: 'Inter', sans-serif;
         }
 
-        /* Functional Border Logic */
         .input-password { border-color: ${isLengthValid ? '#10b981' : '#e2e8f0'} !important; }
-        .input-confirm { 
-           border-color: ${formData.confirmPassword === '' ? '#e2e8f0' : (passwordsMatch ? '#10b981' : '#ef4444')} !important; 
+        .input-confirm {
+          border-color: ${formData.confirmPassword === '' ? '#e2e8f0' : (passwordsMatch ? '#10b981' : '#ef4444')} !important;
         }
 
         .input-wrapper input:focus {
@@ -139,8 +140,6 @@ const NewPass = () => {
           transition: color 0.2s ease;
         }
 
-        .input-wrapper input:focus + .input-icon { color: #F54E25; }
-        
         .validation-icon {
           position: absolute;
           right: 15px;
@@ -172,7 +171,7 @@ const NewPass = () => {
           .brand-side { justify-content: center; }
           .brand-side img { max-width: 300px; }
           .form-side { justify-content: center; width: 100%; }
-          .newpass-card { padding: 40px 25px; border-radius: 30px; box-shadow: none; border: none;}
+          .newpass-card { padding: 40px 25px; border-radius: 30px; box-shadow: none; border: none; }
         }
       `}</style>
 
@@ -185,15 +184,15 @@ const NewPass = () => {
           <div className="newpass-card">
             <h2 className="step-title">New Password</h2>
             <span className="step-subtitle">Please create a secure password for your account</span>
-            
+
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label className="input-label">Enter New Password</label>
                 <div className="input-wrapper">
-                  <input 
+                  <input
                     className="input-password"
                     name="password"
-                    type="password" 
+                    type="password"
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={handleChange}
@@ -213,10 +212,10 @@ const NewPass = () => {
               <div className="form-group">
                 <label className="input-label">Confirm New Password</label>
                 <div className="input-wrapper">
-                  <input 
+                  <input
                     className="input-confirm"
                     name="confirmPassword"
-                    type="password" 
+                    type="password"
                     placeholder="••••••••"
                     value={formData.confirmPassword}
                     onChange={handleChange}
@@ -225,10 +224,9 @@ const NewPass = () => {
                     required
                   />
                   <Lock className="input-icon" size={20} style={{ color: isFocused === 'confirm' ? '#F54E25' : '#94a3b8' }} />
-                  
                   {formData.confirmPassword !== '' && (
-                    passwordsMatch ? 
-                    <CheckCircle className="validation-icon" size={18} color="#10b981" /> : 
+                    passwordsMatch ?
+                    <CheckCircle className="validation-icon" size={18} color="#10b981" /> :
                     <XCircle className="validation-icon" size={18} color="#ef4444" />
                   )}
                 </div>

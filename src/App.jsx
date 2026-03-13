@@ -13,6 +13,10 @@ import Admission from './admission';
 import Service from './service'; 
 // ADDED PROGRESS IMPORT
 import Progress from './progress'; 
+// ADDED PROFILE IMPORT
+import Profile from './profile';
+// ADDED CHANGEPASS IMPORT
+import ChangePass from './changepass';
 
 function App() {
   return (
@@ -33,6 +37,12 @@ function App() {
         
         {/* ADDED ROUTE FOR PROGRESS */}
         <Route path="/progress" element={<Progress />} />
+
+        {/* ADDED ROUTE FOR PROFILE */}
+        <Route path="/profile" element={<Profile />} />
+
+        {/* ADDED ROUTE FOR CHANGEPASS */}
+        <Route path="/changepass" element={<ChangePass />} />
       </Routes>
     </Router>
   );
